@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Secret Outfit Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FFF8E7;
+    --accent: #C8860A;
+    --text: #1A1208;
+    --muted: #5A4A1A;
+    --pill-bg: #1A1208;
+    --pill-text: #FFF8E7;
+    --circle: #FFE9A0;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    transition: background 0.6s ease, color 0.6s ease;
+  }
+
+  .page { display: none; width: 100%; max-width: 900px; }
+  .page.active { display: flex; align-items: center; justify-content: center; gap: 64px; flex-wrap: wrap; }
+
+  /* ── shared layout ── */
+  .hat-left, .floral-left, .default-left { flex-shrink: 0; position: relative; }
+
+  .text-side { max-width: 320px; }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .theme-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    line-height: 1;
+    color: var(--text);
+    margin: 0 0 20px;
+  }
+
+  .theme-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 32px;
+  }
+
+  .date-pill {
+    display: inline-block;
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 10px 24px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  /* bg circle decoration */
+  .bg-circle {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: var(--circle);
+    border-radius: 50%;
+    top: -120px;
+    right: -120px;
+    z-index: -1;
+    pointer-events: none;
+    transition: background 0.6s ease;
+  }
+
+  /* ══════════════════════════════
+     HAT DAY
+  ══════════════════════════════ */
+  #page-hat { --bg: #FFF8E7; --accent: #C8860A; --text: #1A1208; --muted: #5A4A1A; --pill-bg: #1A1208; --pill-text: #FFF8E7; --circle: #FFE9A0; }
+
+  /* ══════════════════════════════
+     FLORALS
+  ══════════════════════════════ */
+  #page-florals {
+    --bg: #F0F7F0;
+    --accent: #3A7D44;
+    --text: #1A2E1C;
+    --muted: #3A5C3F;
+    --pill-bg: #1A2E1C;
+    --pill-text: #F0F7F0;
+    --circle: #C8E6C9;
+  }
+
+  /* ══════════════════════════════
+     DEFAULT
+  ══════════════════════════════ */
+  #page-default {
+    --bg: #F2F2F0;
+    --accent: #888;
+    --text: #2A2A2A;
+    --muted: #888;
+    --pill-bg: #2A2A2A;
+    --pill-text: #F2F2F0;
+    --circle: #E0E0DC;
+  }
+
+  /* ── fade in ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page.active > * {
+    animation: fadeUp 0.7s ease both;
+  }
+  .page.active > *:nth-child(2) { animation-delay: 0.12s; }
+</style>
+</head>
+<body>
+
+<div class="bg-circle" id="bgCircle"></div>
+
+<!-- ══════════════════════════════
+     HAT DAY PAGE
+══════════════════════════════ -->
+<div class="page" id="page-hat">
+  <div class="hat-left">
+    <svg width="260" height="260" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="130" cy="245" rx="90" ry="8" fill="#8B5E1A" opacity="0.15"/>
+      <ellipse cx="130" cy="182" rx="108" ry="18" fill="#5A2A06"/>
+      <ellipse cx="130" cy="178" rx="108" ry="18" fill="#7A3B0E"/>
+      <ellipse cx="105" cy="174" rx="55" ry="7" fill="#9B5520" opacity="0.5"/>
+      <path d="M 88 178 Q 85 140 88 105 Q 92 62 130 58 Q 168 62 172 105 Q 175 140 172 178 Z" fill="#8B4513"/>
+      <path d="M 88 178 Q 85 140 88 105 Q 92 65 108 60 Q 96 100 96 178 Z" fill="#5A2A06" opacity="0.55"/>
+      <path d="M 172 178 Q 175 140 172 105 Q 168 65 152 60 Q 164 100 164 178 Z" fill="#5A2A06" opacity="0.35"/>
+      <path d="M 105 62 Q 118 52 130 51 Q 142 52 155 62 Q 142 70 130 68 Q 118 70 105 62 Z" fill="#5A2A06" opacity="0.6"/>
+      <path d="M 98 100 Q 100 78 108 68 Q 114 62 117 66 Q 109 80 106 105 Z" fill="#B06030" opacity="0.4"/>
+      <rect x="90" y="165" width="80" height="13" rx="2" fill="#2A0F02"/>
+      <rect x="120" y="167" width="20" height="9" rx="1" fill="#C8860A"/>
+      <rect x="122" y="169" width="16" height="5" rx="1" fill="none" stroke="#2A0F02" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="text-side">
+    <div class="eyebrow">This Friday's theme</div>
+    <div class="theme-name">Hat<br>Day</div>
+    <div class="theme-sub">Break out your best lids. Silly, fancy, tiny, enormous — all hats welcome.</div>
+    <div class="date-pill" id="hat-date"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FLORALS PAGE
+══════════════════════════════ -->
+<div class="page" id="page-florals">
+  <div class="floral-left">
+    <svg width="260" height="280" viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg">
+      <!-- stem -->
+      <path d="M130 260 Q125 200 128 160" stroke="#3A7D44" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M128 220 Q105 205 95 185" stroke="#3A7D44" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M129 200 Q152 188 158 168" stroke="#3A7D44" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- left leaf -->
+      <path d="M128 220 Q100 210 95 185 Q112 192 128 220 Z" fill="#5CAD66"/>
+      <!-- right leaf -->
+      <path d="M129 200 Q155 190 158 168 Q144 180 129 200 Z" fill="#5CAD66"/>
+      <!-- big flower center -->
+      <circle cx="130" cy="130" r="22" fill="#F4C842"/>
+      <!-- petals -->
+      <ellipse cx="130" cy="88" rx="14" ry="22" fill="#E8527A"/>
+      <ellipse cx="130" cy="172" rx="14" ry="22" fill="#E8527A"/>
+      <ellipse cx="88" cy="130" rx="22" ry="14" fill="#E8527A"/>
+      <ellipse cx="172" cy="130" rx="22" ry="14" fill="#E8527A"/>
+      <ellipse cx="101" cy="101" rx="14" ry="22" fill="#F07EA0" transform="rotate(-45 101 101)"/>
+      <ellipse cx="159" cy="101" rx="14" ry="22" fill="#F07EA0" transform="rotate(45 159 101)"/>
+      <ellipse cx="101" cy="159" rx="14" ry="22" fill="#F07EA0" transform="rotate(45 101 159)"/>
+      <ellipse cx="159" cy="159" rx="14" ry="22" fill="#F07EA0" transform="rotate(-45 159 159)"/>
+      <!-- center detail -->
+      <circle cx="130" cy="130" r="22" fill="#F4C842"/>
+      <circle cx="122" cy="124" r="3" fill="#C8860A"/>
+      <circle cx="132" cy="120" r="3" fill="#C8860A"/>
+      <circle cx="140" cy="126" r="3" fill="#C8860A"/>
+      <circle cx="138" cy="136" r="3" fill="#C8860A"/>
+      <circle cx="128" cy="138" r="3" fill="#C8860A"/>
+      <circle cx="120" cy="133" r="3" fill="#C8860A"/>
+      <!-- small side flower -->
+      <circle cx="72" cy="105" r="11" fill="#F4C842"/>
+      <ellipse cx="72" cy="83" rx="7" ry="11" fill="#A78BFA"/>
+      <ellipse cx="72" cy="127" rx="7" ry="11" fill="#A78BFA"/>
+      <ellipse cx="50" cy="105" rx="11" ry="7" fill="#A78BFA"/>
+      <ellipse cx="94" cy="105" rx="11" ry="7" fill="#A78BFA"/>
+      <circle cx="72" cy="105" r="11" fill="#F4C842"/>
+      <!-- another small flower -->
+      <circle cx="192" cy="95" r="9" fill="#F4C842"/>
+      <ellipse cx="192" cy="76" rx="6" ry="9" fill="#6EE7B7"/>
+      <ellipse cx="192" cy="114" rx="6" ry="9" fill="#6EE7B7"/>
+      <ellipse cx="173" cy="95" rx="9" ry="6" fill="#6EE7B7"/>
+      <ellipse cx="211" cy="95" rx="9" ry="6" fill="#6EE7B7"/>
+      <circle cx="192" cy="95" r="9" fill="#F4C842"/>
+      <!-- ground shadow -->
+      <ellipse cx="130" cy="268" rx="55" ry="7" fill="#3A7D44" opacity="0.12"/>
+    </svg>
+  </div>
+  <div class="text-side">
+    <div class="eyebrow">This Friday's theme</div>
+    <div class="theme-name">Flo-<br>rals</div>
+    <div class="theme-sub">Bloom where you're planted. Flowers, prints, petals — the more the merrier.</div>
+    <div class="date-pill" id="floral-date"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     DEFAULT PAGE
+══════════════════════════════ -->
+<div class="page" id="page-default">
+  <div class="default-left">
+    <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- face circle -->
+      <circle cx="110" cy="110" r="90" fill="#E0E0DC"/>
+      <circle cx="110" cy="110" r="90" fill="none" stroke="#BBBBB5" stroke-width="2"/>
+      <!-- eyes -->
+      <circle cx="80" cy="90" r="8" fill="#888"/>
+      <circle cx="140" cy="90" r="8" fill="#888"/>
+      <!-- sad mouth -->
+      <path d="M75 140 Q110 118 145 140" stroke="#888" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- question mark on forehead -->
+      <text x="110" y="72" text-anchor="middle" font-size="22" fill="#AAAAAA" font-family="DM Sans, sans-serif" font-weight="500">?</text>
+      <!-- tear -->
+      <ellipse cx="75" cy="107" rx="4" ry="6" fill="#BBBBB5" opacity="0.7"/>
+    </svg>
+  </div>
+  <div class="text-side">
+    <div class="eyebrow">This Friday's theme</div>
+    <div class="theme-name" style="font-size:56px; color:#888;">No theme<br>yet...</div>
+    <div class="theme-sub">Nothing scheduled for this week. Check back once the group decides!</div>
+    <div class="date-pill" style="background:#888;">Check back soon</div>
+  </div>
+</div>
+
+<script>
+  // ══════════════════════════════════════════════════════
+  // THEME SCHEDULE — edit this to add/update themes
+  // friday: the date of that Friday (YYYY-MM-DD)
+  // page:   which page to show ('hat' | 'florals' | add more as needed)
+  // ══════════════════════════════════════════════════════
+  const themes = [
+    {
+      friday: "2026-05-22",
+      page: "hat",
+      dateLabel: "Friday, May 22"
+    },
+    {
+      friday: "2026-05-29",
+      page: "florals",
+      dateLabel: "Friday, May 29"
+    },
+  ];
+
+  // ── date logic ─────────────────────────────────────
+  // Returns Monday of the week containing `date`
+  function getMondayOf(date) {
+    const d = new Date(date);
+    const day = d.getDay(); // 0=Sun, 1=Mon...
+    const diff = day === 0 ? -6 : 1 - day; // shift to Monday
+    d.setDate(d.getDate() + diff);
+    d.setHours(0,0,0,0);
+    return d;
+  }
+
+  function getFridayOf(mondayDate) {
+    const d = new Date(mondayDate);
+    d.setDate(d.getDate() + 4);
+    return d;
+  }
+
+  function findThisWeeksTheme() {
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    const thisMonday = getMondayOf(now);
+    const thisFriday = getFridayOf(thisMonday);
+
+    for (const theme of themes) {
+      // parse the theme's friday
+      const [y, m, d] = theme.friday.split("-").map(Number);
+      const themeFriday = new Date(y, m - 1, d);
+      themeFriday.setHours(0,0,0,0);
+      const themeMonday = getMondayOf(themeFriday);
+
+      // visible Mon–Fri of that week
+      if (now >= themeMonday && now <= themeFriday) {
+        return theme;
+      }
+    }
+    return null;
+  }
+
+  // ── render ─────────────────────────────────────────
+  const theme = findThisWeeksTheme();
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const el = document.getElementById('page-' + id);
+    if (el) {
+      el.classList.add('active');
+      // apply CSS vars from the page to body + bg circle
+      const style = getComputedStyle(el);
+      const vars = ['--bg','--accent','--text','--muted','--pill-bg','--pill-text','--circle'];
+      vars.forEach(v => {
+        document.body.style.setProperty(v, style.getPropertyValue(v).trim());
+      });
+    }
+  }
+
+  if (theme) {
+    if (theme.page === 'hat') document.getElementById('hat-date').textContent = theme.dateLabel;
+    if (theme.page === 'florals') document.getElementById('floral-date').textContent = theme.dateLabel;
+    showPage(theme.page);
+  } else {
+    showPage('default');
+  }
+</script>
+</body>
+</html>

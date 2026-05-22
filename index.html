@@ -453,7 +453,7 @@
    </div>
    <div class="text-side">
      <div class="eyebrow">This Friday's theme</div>
-     <div class="theme-name">Fave<br>Animated<br>Character</div>
+     <div class="theme-name">Fave<br>Toon</div>
      <div class="theme-sub">Dress as your favorite animated character. Any era, any universe, any vibe.</div>
      <a class="date-pill" id="cartoon-date" href="#calendar"></a>
    </div>
@@ -677,6 +677,7 @@
   if (currentTheme) {
     if (currentTheme.page === 'hat') document.getElementById('hat-date').textContent = currentTheme.dateLabel;
     if (currentTheme.page === 'florals') document.getElementById('floral-date').textContent = currentTheme.dateLabel;
+    if (currentTheme.page === 'cartoon') document.getElementById('cartoon-date').textContent = currentTheme.dateLabel;
     showPage(currentTheme.page, false);
   } else {
     showPage('default', true);

@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Outfit Day — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0E0E10;
+    --surface: #18181C;
+    --border: #2A2A32;
+    --text: #F0F0F4;
+    --muted: #6B6B78;
+    --accent: #7C6FFF;
+    --accent-dim: rgba(124,111,255,0.15);
+    --success: #4ADE80;
+    --warning: #FBBF24;
+    --danger: #F87171;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── layout ── */
+  .shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── sidebar ── */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .logo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .logo span { color: var(--accent); }
+
+  .nav { display: flex; flex-direction: column; gap: 4px; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .nav-item.active { color: var(--text); background: var(--accent-dim); }
+  .nav-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0; }
+  .nav-item.active .dot { opacity: 1; }
+
+  .sidebar-footer { margin-top: auto; }
+
+  .token-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .token-status:hover { border-color: var(--accent); }
+  .token-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--danger); flex-shrink: 0; }
+  .token-dot.connected { background: var(--success); }
+
+  /* ── main ── */
+  .main {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 820px;
+  }
+
+  .page-header { display: flex; flex-direction: column; gap: 6px; }
+  .page-title { font-size: 28px; font-weight: 600; }
+  .page-sub { font-size: 14px; color: var(--muted); font-weight: 300; }
+
+  /* ── panels ── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .panel-head {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .panel-head-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .panel-step {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .panel-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+  /* ── form elements ── */
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  input[type="text"], input[type="date"], textarea, select {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+  input[type="text"]:focus,
+  input[type="date"]:focus,
+  textarea:focus,
+  select:focus { border-color: var(--accent); }
+
+  input[type="password"] {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+  input[type="password"]:focus { border-color: var(--accent); }
+
+  textarea { resize: vertical; min-height: 100px; font-family: var(--mono); font-size: 12px; }
+
+  /* ── color pickers ── */
+  .blob-pickers {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .blob-picker-item { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .blob-picker-item label { font-size: 10px; }
+
+  .color-swatch {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .color-swatch:hover { border-color: var(--accent); transform: scale(1.08); }
+  .color-swatch input[type="color"] {
+    position: absolute;
+    inset: -8px;
+    width: calc(100% + 16px);
+    height: calc(100% + 16px);
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+
+  /* preset palette */
+  .palette-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .palette { display: flex; gap: 8px; flex-wrap: wrap; }
+  .preset-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .preset-dot:hover { border-color: white; transform: scale(1.15); }
+
+  /* ── SVG drop zone ── */
+  .dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .dropzone:hover, .dropzone.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .dropzone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .dropzone-icon { font-size: 28px; margin-bottom: 8px; }
+  .dropzone-label { font-size: 14px; color: var(--muted); }
+  .dropzone-label strong { color: var(--text); }
+  .dropzone.has-file { border-color: var(--success); border-style: solid; }
+  .dropzone.has-file .dropzone-label { color: var(--success); }
+
+  .svg-preview {
+    display: none;
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+  }
+  .svg-preview.visible { display: flex; }
+  .svg-preview svg { max-width: 160px; max-height: 160px; }
+
+  /* ── live preview ── */
+  .preview-frame {
+    background: #fce4f3;
+    border-radius: 12px;
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
+    flex-wrap: wrap;
+    transition: background 0.4s;
+  }
+  .preview-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .preview-svg-wrap { position: relative; z-index: 1; flex-shrink: 0; width: 100px; height: 110px; display: flex; align-items: center; justify-content: center; }
+  .preview-svg-wrap svg { width: 100%; height: 100%; }
+  .preview-text { position: relative; z-index: 1; }
+  .preview-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; }
+  .preview-name { font-size: 38px; font-weight: 700; line-height: 1; margin-bottom: 10px; font-family: 'Georgia', serif; }
+  .preview-pill { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 16px; border-radius: 999px; }
+
+  /* ── output code ── */
+  .code-block {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: #A8A8B8;
+    overflow-x: auto;
+    white-space: pre;
+    max-height: 240px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+  }
+
+  /* ── buttons ── */
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: #9085FF; }
+  .btn-secondary { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+  .btn-success { background: var(--success); color: #0a1a0a; }
+  .btn-success:hover { background: #6ee89a; }
+  .btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+  .btn-danger:hover { background: rgba(248,113,113,0.1); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── toast ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 100;
+    max-width: 320px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { border-color: var(--success); }
+  .toast.error { border-color: var(--danger); }
+
+  /* ── token modal ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .modal-title { font-size: 18px; font-weight: 600; }
+  .modal-sub { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .modal-steps { display: flex; flex-direction: column; gap: 8px; }
+  .modal-step { font-size: 13px; color: var(--muted); display: flex; gap: 10px; }
+  .modal-step-num { color: var(--accent); font-weight: 600; flex-shrink: 0; }
+
+  /* ── status badge ── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .status-badge.ok { background: rgba(74,222,128,0.1); color: var(--success); }
+  .status-badge.warn { background: rgba(251,191,36,0.1); color: var(--warning); }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="logo">Outfit Day <span>Admin</span></div>
+    <nav class="nav">
+      <button class="nav-item active" onclick="showSection('new')">
+        <span class="dot"></span> New Theme
+      </button>
+      <button class="nav-item" onclick="showSection('github')">
+        <span class="dot"></span> Push to GitHub
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="token-status" onclick="openTokenModal()">
+        <span class="token-dot" id="tokenDot"></span>
+        <span id="tokenStatusLabel">No token set</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- NEW THEME SECTION -->
+    <div id="section-new">
+      <div class="page-header">
+        <div class="page-title">New Theme</div>
+        <div class="page-sub">Fill in the details — a code snippet will be generated for you to paste into index.html, or push directly to GitHub.</div>
+      </div>
+
+      <!-- Step 1: Info -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step">1</div>
+          <div class="panel-head-label">Theme Info</div>
+        </div>
+        <div class="panel-body">
+          <div class="field-row">
+            <div class="field">
+              <label>Theme Name</label>
+              <input type="text" id="themeName" placeholder="e.g. Western" oninput="updatePreview()"/>
+            </div>
+            <div class="field">
+              <label>Friday Date</label>
+              <input type="date" id="themeDate" oninput="updatePreview()"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Tagline</label>
+            <input type="text" id="themeTagline" placeholder="e.g. Boots, buckles, and bandanas." oninput="updatePreview()"/>
+          </div>
+          <div class="field">
+            <label>Page ID <span style="color:var(--muted);font-weight:300;text-transform:none;letter-spacing:0">(lowercase, no spaces — e.g. western)</span></label>
+            <input type="text" id="themeId" placeholder="western" oninput="sanitizeId(); updatePreview()"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Colors -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step">2</div>
+          <div class="panel-head-label">Blob Colors</div>
+        </div>
+        <div class="panel-body">
+          <div class="blob-pickers">
+            <div class="blob-picker-item">
+              <label>Blob 1</label>
+              <div class="color-swatch" id="swatch1" style="background:#f9a8d4">
+                <input type="color" id="color1" value="#f9a8d4" oninput="syncSwatch(1); updatePreview()"/>
+              </div>
+            </div>
+            <div class="blob-picker-item">
+              <label>Blob 2</label>
+              <div class="color-swatch" id="swatch2" style="background:#c084fc">
+                <input type="color" id="color2" value="#c084fc" oninput="syncSwatch(2); updatePreview()"/>
+              </div>
+            </div>
+            <div class="blob-picker-item">
+              <label>Blob 3</label>
+              <div class="color-swatch" id="swatch3" style="background:#fbcfe8">
+                <input type="color" id="color3" value="#fbcfe8" oninput="syncSwatch(3); updatePreview()"/>
+              </div>
+            </div>
+            <div class="blob-picker-item">
+              <label>Blob 4</label>
+              <div class="color-swatch" id="swatch4" style="background:#e879f9">
+                <input type="color" id="color4" value="#e879f9" oninput="syncSwatch(4); updatePreview()"/>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="palette-label">Quick Presets</div>
+            <div class="palette" id="palette"></div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>Accent Color</label>
+              <div style="display:flex;gap:10px;align-items:center">
+                <div class="color-swatch" id="swatchAccent" style="background:#9D0040;width:40px;height:40px;">
+                  <input type="color" id="colorAccent" value="#9D0040" oninput="syncSwatch('Accent'); updatePreview()"/>
+                </div>
+                <span style="font-size:12px;color:var(--muted)">eyebrow, month label</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Text Color</label>
+              <div style="display:flex;gap:10px;align-items:center">
+                <div class="color-swatch" id="swatchText" style="background:#1A1208;width:40px;height:40px;">
+                  <input type="color" id="colorText" value="#1A1208" oninput="syncSwatch('Text'); updatePreview()"/>
+                </div>
+                <span style="font-size:12px;color:var(--muted)">headings, body</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: SVG -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step">3</div>
+          <div class="panel-head-label">SVG Illustration</div>
+        </div>
+        <div class="panel-body">
+          <div class="dropzone" id="dropzone">
+            <input type="file" accept=".svg,image/svg+xml" onchange="handleSvgFile(event)"/>
+            <div class="dropzone-icon">⬆︎</div>
+            <div class="dropzone-label"><strong>Upload an SVG file</strong> or drag and drop</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="flex:1;height:1px;background:var(--border)"></div>
+            <span style="font-size:11px;color:var(--muted)">OR PASTE SVG CODE</span>
+            <div style="flex:1;height:1px;background:var(--border)"></div>
+          </div>
+          <div class="field">
+            <textarea id="svgPaste" placeholder="Paste raw SVG code here..." oninput="handleSvgPaste()"></textarea>
+          </div>
+          <div class="svg-preview" id="svgPreview"></div>
+        </div>
+      </div>
+
+      <!-- Step 4: Preview -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step">4</div>
+          <div class="panel-head-label">Live Preview</div>
+        </div>
+        <div class="panel-body">
+          <div class="preview-frame" id="previewFrame">
+            <div class="preview-blob" id="pb1" style="width:300px;height:300px;top:-80px;left:-60px;"></div>
+            <div class="preview-blob" id="pb2" style="width:250px;height:250px;top:-40px;right:-40px;"></div>
+            <div class="preview-blob" id="pb3" style="width:200px;height:200px;bottom:-60px;left:30%;"></div>
+            <div class="preview-svg-wrap" id="previewSvgWrap">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="40" fill="#333" opacity="0.3"/>
+                <text x="50" y="56" text-anchor="middle" font-size="12" fill="#666">SVG</text>
+              </svg>
+            </div>
+            <div class="preview-text">
+              <div class="preview-eyebrow" id="previewEyebrow" style="color:#C8860A">This Friday's theme</div>
+              <div class="preview-name" id="previewName" style="color:#1A1208">Theme</div>
+              <div class="preview-pill" id="previewPill" style="background:#1A1208;color:#FFF8E7">Friday, —</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Generate -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step">5</div>
+          <div class="panel-head-label">Generated Code</div>
+        </div>
+        <div class="panel-body">
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="generateCode()">⚡ Generate Snippet</button>
+            <button class="btn btn-secondary" onclick="copyCode()" id="copyBtn" disabled>Copy</button>
+          </div>
+          <div class="code-block" id="codeOutput">// Fill in the fields above and click Generate</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6">
+            After copying, paste each block into <code style="color:var(--accent)">index.html</code> in the right section — or use the GitHub push below.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GITHUB SECTION -->
+    <div id="section-github" style="display:none">
+      <div class="page-header">
+        <div class="page-title">Push to GitHub</div>
+        <div class="page-sub">Commit your new theme directly to your repo. GitHub Pages will update automatically in ~30 seconds.</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-head-label">Repository</div>
+        </div>
+        <div class="panel-body">
+          <div class="field-row">
+            <div class="field">
+              <label>GitHub Username</label>
+              <input type="text" id="ghUser" placeholder="yourname" oninput="saveGhSettings()"/>
+            </div>
+            <div class="field">
+              <label>Repo Name</label>
+              <input type="text" id="ghRepo" placeholder="outfit-theme" oninput="saveGhSettings()"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>File Path</label>
+            <input type="text" id="ghFile" placeholder="index.html" oninput="saveGhSettings()"/>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-secondary" onclick="testConnection()" id="testBtn">Test Connection</button>
+            <span id="connectionStatus"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-head-label">Commit</div>
+        </div>
+        <div class="panel-body">
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;background:var(--bg);border-radius:8px;padding:14px;border:1px solid var(--border)">
+            This will read your current <code style="color:var(--accent)">index.html</code> from GitHub, inject the new theme snippets (page block, CSS vars, blobColors, themes array entry, hidden SVG, and date pill init line), then commit the updated file back. <strong style="color:var(--text)">Make sure you've generated the snippet first.</strong>
+          </div>
+          <div class="field">
+            <label>Commit Message</label>
+            <input type="text" id="commitMsg" placeholder="Add [theme name] theme"/>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-success" onclick="pushToGithub()" id="pushBtn">Push to GitHub →</button>
+          </div>
+          <div id="pushStatus" style="font-size:13px;color:var(--muted);"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- TOKEN MODAL -->
+<div class="modal-overlay" id="tokenModal">
+  <div class="modal">
+    <div class="modal-title">GitHub Personal Access Token</div>
+    <div class="modal-sub">This lets the tool commit directly to your repo. You only do this once — it's saved in your browser.</div>
+    <div class="modal-steps">
+      <div class="modal-step"><span class="modal-step-num">1.</span> Go to github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)</div>
+      <div class="modal-step"><span class="modal-step-num">2.</span> Click "Generate new token (classic)"</div>
+      <div class="modal-step"><span class="modal-step-num">3.</span> Give it a name like "outfit-day", set expiration, check the <strong style="color:white">repo</strong> scope</div>
+      <div class="modal-step"><span class="modal-step-num">4.</span> Copy the token and paste it below</div>
+    </div>
+    <div class="field">
+      <label>Token</label>
+      <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="saveToken()">Save Token</button>
+      <button class="btn btn-secondary" onclick="closeTokenModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="clearToken()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── state ──────────────────────────────────────────
+  let svgCode = '';
+  let generatedSnippet = null;
+
+  const presets = [
+    { name: 'Rose',    colors: ['#fda4af','#fb7185','#fecdd3','#f43f5e'] },
+    { name: 'Sky',     colors: ['#7dd3fc','#38bdf8','#bae6fd','#0ea5e9'] },
+    { name: 'Lime',    colors: ['#bef264','#a3e635','#d9f99d','#84cc16'] },
+    { name: 'Amber',   colors: ['#fde68a','#fbbf24','#fef3c7','#f59e0b'] },
+    { name: 'Violet',  colors: ['#c4b5fd','#a78bfa','#ede9fe','#7c3aed'] },
+    { name: 'Teal',    colors: ['#99f6e4','#2dd4bf','#ccfbf1','#0d9488'] },
+    { name: 'Orange',  colors: ['#fed7aa','#fb923c','#ffedd5','#ea580c'] },
+    { name: 'Emerald', colors: ['#bbf7d0','#4ade80','#dcfce7','#16a34a'] },
+  ];
+
+  // ── init ───────────────────────────────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    buildPalette();
+    loadGhSettings();
+    updateTokenStatus();
+    updatePreview();
+
+    // drag over dropzone
+    const dz = document.getElementById('dropzone');
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+    dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+    dz.addEventListener('drop', e => {
+      e.preventDefault();
+      dz.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file) readSvgFile(file);
+    });
+  });
+
+  // ── navigation ─────────────────────────────────────
+  function showSection(id) {
+    document.getElementById('section-new').style.display = id === 'new' ? '' : 'none';
+    document.getElementById('section-github').style.display = id === 'github' ? '' : 'none';
+    document.querySelectorAll('.nav-item').forEach((el, i) => {
+      el.classList.toggle('active', (i === 0 && id === 'new') || (i === 1 && id === 'github'));
+    });
+  }
+
+  // ── palette ────────────────────────────────────────
+  function buildPalette() {
+    const container = document.getElementById('palette');
+    presets.forEach(p => {
+      const dot = document.createElement('div');
+      dot.className = 'preset-dot';
+      dot.title = p.name;
+      dot.style.background = `linear-gradient(135deg, ${p.colors[0]} 50%, ${p.colors[1]} 50%)`;
+      dot.onclick = () => applyPreset(p.colors);
+      container.appendChild(dot);
+    });
+  }
+
+  function applyPreset(colors) {
+    colors.forEach((c, i) => {
+      document.getElementById(`color${i+1}`).value = c;
+      document.getElementById(`swatch${i+1}`).style.background = c;
+    });
+    updatePreview();
+  }
+
+  function syncSwatch(n) {
+    const val = document.getElementById(`color${n}`).value;
+    document.getElementById(`swatch${n}`).style.background = val;
+  }
+
+  // ── SVG handling ───────────────────────────────────
+  function handleSvgFile(e) {
+    const file = e.target.files[0];
+    if (file) readSvgFile(file);
+  }
+
+  function readSvgFile(file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      svgCode = e.target.result.trim();
+      document.getElementById('svgPaste').value = svgCode;
+      showSvgPreview(svgCode);
+      const dz = document.getElementById('dropzone');
+      dz.classList.add('has-file');
+      dz.querySelector('.dropzone-label').innerHTML = `<strong>${file.name}</strong> loaded ✓`;
+      updatePreview();
+    };
+    reader.readAsText(file);
+  }
+
+  function handleSvgPaste() {
+    svgCode = document.getElementById('svgPaste').value.trim();
+    showSvgPreview(svgCode);
+    updatePreview();
+  }
+
+  function showSvgPreview(code) {
+    const el = document.getElementById('svgPreview');
+    el.innerHTML = code;
+    el.classList.add('visible');
+    const svg = el.querySelector('svg');
+    if (svg) { svg.style.maxWidth = '160px'; svg.style.maxHeight = '160px'; }
+  }
+
+  // ── preview ────────────────────────────────────────
+  function updatePreview() {
+    const name = document.getElementById('themeName').value || 'Theme';
+    const dateVal = document.getElementById('themeDate').value;
+    const accent = document.getElementById('colorAccent').value;
+    const textColor = document.getElementById('colorText').value;
+    const c1 = document.getElementById('color1').value;
+    const c2 = document.getElementById('color2').value;
+    const c3 = document.getElementById('color3').value;
+
+    // bg = lightest blob color lightened
+    document.getElementById('previewFrame').style.background = lighten(c1, 0.6);
+    document.getElementById('pb1').style.background = c1;
+    document.getElementById('pb2').style.background = c2;
+    document.getElementById('pb3').style.background = c3;
+
+    document.getElementById('previewEyebrow').style.color = accent;
+    document.getElementById('previewName').style.color = textColor;
+    document.getElementById('previewName').textContent = name;
+    document.getElementById('previewPill').style.background = textColor;
+    document.getElementById('previewPill').style.color = lighten(c1, 0.7);
+
+    if (dateVal) {
+      const d = new Date(dateVal + 'T00:00:00');
+      document.getElementById('previewPill').textContent = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+
+    if (svgCode) {
+      document.getElementById('previewSvgWrap').innerHTML = svgCode;
+      const svg = document.getElementById('previewSvgWrap').querySelector('svg');
+      if (svg) { svg.style.width = '100%'; svg.style.height = '100%'; }
+    }
+
+    // auto-fill commit message
+    if (name !== 'Theme') {
+      document.getElementById('commitMsg').placeholder = `Add ${name} theme`;
+    }
+  }
+
+  function lighten(hex, amount) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    const mix = v => Math.round(v + (255 - v) * amount);
+    return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+  }
+
+  function sanitizeId() {
+    const el = document.getElementById('themeId');
+    el.value = el.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+  }
+
+  // ── generate code ──────────────────────────────────
+  function generateCode() {
+    const name     = document.getElementById('themeName').value.trim();
+    const dateVal  = document.getElementById('themeDate').value;
+    const tagline  = document.getElementById('themeTagline').value.trim();
+    const id       = document.getElementById('themeId').value.trim();
+    const c1       = document.getElementById('color1').value;
+    const c2       = document.getElementById('color2').value;
+    const c3       = document.getElementById('color3').value;
+    const c4       = document.getElementById('color4').value;
+    const accent   = document.getElementById('colorAccent').value;
+    const textCol  = document.getElementById('colorText').value;
+
+    if (!name || !dateVal || !id) {
+      toast('Fill in theme name, date, and page ID first', 'error');
+      return;
+    }
+
+    const d = new Date(dateVal + 'T00:00:00');
+    const dateLabel = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    const friday = dateVal;
+
+    // derive pill text color from bg lightness
+    const pillText = lighten(c1, 0.8);
+
+    // clean svg for inline use
+    const cleanSvg = svgCode
+      ? svgCode.replace(/id="([^"]+)"/g, (m, p1) => `id="${id}-${p1}"`)
+                .replace(/url\(#([^)]+)\)/g, (m, p1) => `url(#${id}-${p1})`)
+      : `<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="${c1}"/></svg>`;
+
+    generatedSnippet = {
+      pageBlock: `\n  <!-- ${name.toUpperCase()} -->\n  <div class="page" id="page-${id}">\n    <div class="${id}-left">\n      ${cleanSvg}\n    </div>\n    <div class="text-side">\n      <div class="eyebrow">This Friday's theme</div>\n      <div class="theme-name">${name}</div>\n      <div class="theme-sub">${tagline}</div>\n      <a class="date-pill" id="${id}-date" href="#calendar"></a>\n    </div>\n  </div>`,
+
+      cssVars: `  #page-${id} { --accent: ${accent}; --text: ${textCol}; --muted: ${textCol}99; --pill-bg: ${textCol}; --pill-text: ${lighten(c1, 0.85).replace('rgb','rgb').replace('rgb(', '#').replace(')','').replace(/,/g,'').trim()}; }`,
+
+      blobEntry: `    ${id}: ['${c1}', '${c2}', '${c3}', '${c4}'],`,
+
+      themesEntry: `    { friday: "${friday}", page: "${id}", name: "${name}", tagline: "${tagline}", dateLabel: "${dateLabel}" },`,
+
+      hiddenSvg: `  <svg id="svg-${id}" viewBox="${getSvgViewBox(cleanSvg)}" xmlns="http://www.w3.org/2000/svg">\n    ${getInnerSvg(cleanSvg)}\n  </svg>`,
+
+      initLine: `    if (currentTheme.page === '${id}') document.getElementById('${id}-date').textContent = currentTheme.dateLabel;`,
+    };
+
+    const out = [
+      '/* ══ 1. ADD TO: <!-- HERO --> section ══ */',
+      generatedSnippet.pageBlock,
+      '',
+      '/* ══ 2. ADD TO: /* ── page CSS vars ── */ section ══ */',
+      generatedSnippet.cssVars,
+      '',
+      '/* ══ 3. ADD TO: blobColors object ══ */',
+      generatedSnippet.blobEntry,
+      '',
+      '/* ══ 4. ADD TO: themes array ══ */',
+      generatedSnippet.themesEntry,
+      '',
+      '/* ══ 5. ADD TO: hidden SVG div ══ */',
+      generatedSnippet.hiddenSvg,
+      '',
+      '/* ══ 6. ADD TO: init block (if/currentTheme section) ══ */',
+      generatedSnippet.initLine,
+    ].join('\n');
+
+    document.getElementById('codeOutput').textContent = out;
+    document.getElementById('copyBtn').disabled = false;
+    toast('Snippet generated!', 'success');
+  }
+
+  function getSvgViewBox(svg) {
+    const m = svg.match(/viewBox="([^"]+)"/);
+    return m ? m[1] : '0 0 260 260';
+  }
+
+  function getInnerSvg(svg) {
+    return svg.replace(/<svg[^>]*>/, '').replace(/<\/svg>/, '').trim();
+  }
+
+  function copyCode() {
+    const text = document.getElementById('codeOutput').textContent;
+    navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard!', 'success'));
+  }
+
+  // ── github ─────────────────────────────────────────
+  function saveGhSettings() {
+    localStorage.setItem('gh_user', document.getElementById('ghUser').value);
+    localStorage.setItem('gh_repo', document.getElementById('ghRepo').value);
+    localStorage.setItem('gh_file', document.getElementById('ghFile').value);
+  }
+
+  function loadGhSettings() {
+    document.getElementById('ghUser').value = localStorage.getItem('gh_user') || '';
+    document.getElementById('ghRepo').value = localStorage.getItem('gh_repo') || '';
+    document.getElementById('ghFile').value = localStorage.getItem('gh_file') || 'index.html';
+  }
+
+  async function testConnection() {
+    const token = localStorage.getItem('gh_token');
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const file  = document.getElementById('ghFile').value.trim();
+    const status = document.getElementById('connectionStatus');
+
+    if (!token) { toast('Set your GitHub token first', 'error'); return; }
+    if (!user || !repo) { toast('Enter username and repo name', 'error'); return; }
+
+    status.textContent = 'Testing...';
+    status.style.color = 'var(--muted)';
+
+    try {
+      const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${file}`, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      if (res.ok) {
+        status.innerHTML = '<span class="status-badge ok">✓ Connected</span>';
+        toast('Connected successfully!', 'success');
+      } else {
+        status.innerHTML = '<span class="status-badge warn">✗ Not found — check username, repo, and file path</span>';
+      }
+    } catch {
+      status.innerHTML = '<span class="status-badge warn">✗ Network error</span>';
+    }
+  }
+
+  async function pushToGithub() {
+    if (!generatedSnippet) { toast('Generate the snippet first', 'error'); return; }
+
+    const token = localStorage.getItem('gh_token');
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const file  = document.getElementById('ghFile').value.trim();
+    const msg   = document.getElementById('commitMsg').value.trim() || `Add theme`;
+
+    if (!token) { toast('Set your GitHub token first', 'error'); return; }
+    if (!user || !repo) { toast('Enter username and repo name', 'error'); return; }
+
+    const pushBtn = document.getElementById('pushBtn');
+    const statusEl = document.getElementById('pushStatus');
+    pushBtn.disabled = true;
+    pushBtn.textContent = 'Reading file...';
+    statusEl.textContent = '';
+
+    try {
+      // 1. get current file
+      const getRes = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${file}`, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      if (!getRes.ok) throw new Error('Could not read file from GitHub. Check your settings.');
+      const fileData = await getRes.json();
+      let html = atob(fileData.content.replace(/\n/g,''));
+      const sha = fileData.sha;
+
+      pushBtn.textContent = 'Injecting theme...';
+
+      // 2. inject page block — before <!-- DEFAULT -->
+      html = html.replace(
+        /(\s*<!-- DEFAULT -->)/,
+        `\n${generatedSnippet.pageBlock}\n$1`
+      );
+
+      // 3. inject CSS vars — after last existing #page- var line
+      html = html.replace(
+        /(#page-default\s*\{[^}]+\})/,
+        `$1\n  ${generatedSnippet.cssVars}`
+      );
+
+      // 4. inject blobColors entry
+      html = html.replace(
+        /(const blobColors = \{[\s\S]*?)(  \};)/,
+        `$1${generatedSnippet.blobEntry}\n$2`
+      );
+
+      // 5. inject themes array entry — before closing ];
+      html = html.replace(
+        /(const themes = \[[\s\S]*?)(\s*\];)/,
+        `$1\n    ${generatedSnippet.themesEntry}$2`
+      );
+
+      // 6. inject hidden SVG — before closing </div> of hidden div
+      html = html.replace(
+        /(<div style="display:none">[\s\S]*?)(<\/div>\s*\n\s*<script)/,
+        `$1${generatedSnippet.hiddenSvg}\n$2`
+      );
+
+      // 7. inject init line — after last existing pill init line
+      html = html.replace(
+        /(if \(currentTheme\.page[\s\S]*?)(    showPage)/,
+        `$1    ${generatedSnippet.initLine}\n$2`
+      );
+
+      // 8. commit
+      pushBtn.textContent = 'Committing...';
+      const putRes = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${file}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${token}`,
+          Accept: 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: msg,
+          content: btoa(unescape(encodeURIComponent(html))),
+          sha: sha,
+        })
+      });
+
+      if (!putRes.ok) {
+        const err = await putRes.json();
+        throw new Error(err.message || 'Commit failed');
+      }
+
+      toast('Pushed! GitHub Pages will update in ~30 seconds.', 'success');
+      statusEl.innerHTML = `<span class="status-badge ok">✓ Committed: "${msg}"</span>`;
+
+    } catch(e) {
+      toast(e.message, 'error');
+      statusEl.innerHTML = `<span class="status-badge warn">✗ ${e.message}</span>`;
+    } finally {
+      pushBtn.disabled = false;
+      pushBtn.textContent = 'Push to GitHub →';
+    }
+  }
+
+  // ── token ──────────────────────────────────────────
+  function openTokenModal() {
+    const t = localStorage.getItem('gh_token');
+    if (t) document.getElementById('tokenInput').value = t;
+    document.getElementById('tokenModal').classList.add('open');
+  }
+  function closeTokenModal() {
+    document.getElementById('tokenModal').classList.remove('open');
+  }
+  function saveToken() {
+    const val = document.getElementById('tokenInput').value.trim();
+    if (!val) { toast('Paste a token first', 'error'); return; }
+    localStorage.setItem('gh_token', val);
+    updateTokenStatus();
+    closeTokenModal();
+    toast('Token saved!', 'success');
+  }
+  function clearToken() {
+    localStorage.removeItem('gh_token');
+    document.getElementById('tokenInput').value = '';
+    updateTokenStatus();
+    closeTokenModal();
+    toast('Token cleared', 'success');
+  }
+  function updateTokenStatus() {
+    const t = localStorage.getItem('gh_token');
+    const dot = document.getElementById('tokenDot');
+    const label = document.getElementById('tokenStatusLabel');
+    if (t) {
+      dot.classList.add('connected');
+      label.textContent = 'Token set ✓';
+    } else {
+      dot.classList.remove('connected');
+      label.textContent = 'No token — click to set';
+    }
+  }
+
+  // ── toast ──────────────────────────────────────────
+  function toast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    el.textContent = (type === 'success' ? '✓ ' : '✗ ') + msg;
+    el.className = `toast ${type} show`;
+    setTimeout(() => el.classList.remove('show'), 3200);
+  }
+
+  // close modal on overlay click
+  document.getElementById('tokenModal').addEventListener('click', function(e) {
+    if (e.target === this) closeTokenModal();
+  });
+</script>
+</body>
+</html>

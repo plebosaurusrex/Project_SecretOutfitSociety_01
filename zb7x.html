@@ -997,7 +997,7 @@
       });
       if (!getRes.ok) throw new Error('Could not read file from GitHub. Check your settings.');
       const fileData = await getRes.json();
-      let html = atob(fileData.content.replace(/\n/g,''));
+      let html = new TextDecoder().decode(Uint8Array.from(atob(fileData.content.replace(/\n/g,'')), c => c.charCodeAt(0)));
       const sha = fileData.sha;
 
       pushBtn.textContent = 'Injecting theme...';

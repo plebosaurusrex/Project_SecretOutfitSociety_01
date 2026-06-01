@@ -239,7 +239,7 @@
   }
 
   body.is-default .cal-row {
-    border-bottom-color: rgba(255,255,255,0.1);
+    border-bottom-color: rgba(255,255,255,0.15);
   }
 
   .cal-row.is-current {
@@ -301,6 +301,18 @@
     font-weight: 300;
     color: var(--muted);
     font-style: italic;
+  }
+
+  body.is-default .cal-tbd {
+    color: rgba(255,255,255,0.5);
+  }
+
+  body.is-default .cal-title {
+    color: #fdf4ff;
+  }
+
+  body.is-default .cal-eyebrow {
+    color: #e879f9;
   }
 
   .cal-image-col {
@@ -459,30 +471,29 @@
      <a class="date-pill" id="cartoon-date" href="#calendar"></a>
    </div>
  </div>
- 
-  <!-- PINK -->
- <div class="page" id="page-pink">
-  <div class="pink-left">
-    <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="pinkgrad" cx="35%" cy="32%" r="65%">
-          <stop offset="0%" stop-color="#FF85AF"/>
-          <stop offset="100%" stop-color="#C2185B"/>
-        </radialGradient>
-      </defs>
-      <circle cx="110" cy="110" r="90" fill="url(#pinkgrad)"/>
-      <ellipse cx="85" cy="78" rx="28" ry="18" fill="white" opacity="0.12"/>
-    </svg>
-  </div>
-  <div class="text-side">
-    <div class="eyebrow">This Friday's theme</div>
-    <div class="theme-name">Pink</div>
-    <div class="theme-sub">"On Fridays, we wear pink." You know the rules.</div>
-    <a class="date-pill" id="pink-date" href="#calendar"></a>
-  </div>
-</div>
 
- 
+  <!-- PINK -->
+  <div class="page" id="page-pink">
+    <div class="pink-left">
+      <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="pinkgrad" cx="35%" cy="32%" r="65%">
+            <stop offset="0%" stop-color="#FF85AF"/>
+            <stop offset="100%" stop-color="#C2185B"/>
+          </radialGradient>
+        </defs>
+        <circle cx="110" cy="110" r="90" fill="url(#pinkgrad)"/>
+        <ellipse cx="85" cy="78" rx="28" ry="18" fill="white" opacity="0.12"/>
+      </svg>
+    </div>
+    <div class="text-side">
+      <div class="eyebrow">This Friday's theme</div>
+      <div class="theme-name">Pink</div>
+      <div class="theme-sub">"On Fridays, we wear pink." You know the rules.</div>
+      <a class="date-pill" id="pink-date" href="#calendar"></a>
+    </div>
+  </div>
+
   <!-- DEFAULT -->
   <div class="page" id="page-default">
     <div class="default-left">
@@ -553,44 +564,41 @@
     <circle cx="132" cy="120" r="3" fill="#C8860A"/>
     <circle cx="140" cy="126" r="3" fill="#C8860A"/>
   </svg>
-   <svg id="svg-cartoon" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
-   <ellipse cx="110" cy="232" rx="70" ry="8" fill="#0A1A2E" opacity="0.12"/>
-   <circle cx="48" cy="72" r="46" fill="#0A1A2E"/>
-   <circle cx="172" cy="72" r="46" fill="#0A1A2E"/>
-   <circle cx="110" cy="148" r="80" fill="#0A1A2E"/>
-   <ellipse cx="92" cy="128" rx="18" ry="22" fill="#1A2A3A" opacity="0.5"/>
- </svg>
- <svg id="svg-pink" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="pinkgrad-sm" cx="35%" cy="32%" r="65%">
-      <stop offset="0%" stop-color="#FF85AF"/>
-      <stop offset="100%" stop-color="#C2185B"/>
-    </radialGradient>
-  </defs>
-  <circle cx="110" cy="110" r="90" fill="url(#pinkgrad-sm)"/>
-  <ellipse cx="85" cy="78" rx="28" ry="18" fill="white" opacity="0.12"/>
-</svg>
+  <svg id="svg-cartoon" viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="110" cy="232" rx="70" ry="8" fill="#0A1A2E" opacity="0.12"/>
+    <circle cx="48" cy="72" r="46" fill="#0A1A2E"/>
+    <circle cx="172" cy="72" r="46" fill="#0A1A2E"/>
+    <circle cx="110" cy="148" r="80" fill="#0A1A2E"/>
+    <ellipse cx="92" cy="128" rx="18" ry="22" fill="#1A2A3A" opacity="0.5"/>
+  </svg>
+  <svg id="svg-pink" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="pinkgrad-sm" cx="35%" cy="32%" r="65%">
+        <stop offset="0%" stop-color="#FF85AF"/>
+        <stop offset="100%" stop-color="#C2185B"/>
+      </radialGradient>
+    </defs>
+    <circle cx="110" cy="110" r="90" fill="url(#pinkgrad-sm)"/>
+    <ellipse cx="85" cy="78" rx="28" ry="18" fill="white" opacity="0.12"/>
+  </svg>
 </div>
-
- 
 
 <script>
   // ══════════════════════════════════════════════════════
   // THEME SCHEDULE
   // ══════════════════════════════════════════════════════
   const themes = [
-    { friday: "2026-05-15", page: "florals", name: "Florals",  tagline: "Flowers, prints, petals.",        dateLabel: "Friday, May 15" },
-    { friday: "2026-05-22", page: "hat",     name: "Hat Day",  tagline: "All hats welcome.",               dateLabel: "Friday, May 22" },
-    { friday: "2026-05-15", page: "florals", name: "Florals",  tagline: "Bloom where you're planted.",     dateLabel: "Friday, May 15" },
-    { friday: "2026-05-29", page: "cartoon", name: "Fave Animated Character", tagline: "'Anime was a mistake.' -Haiyao Miyazaki", dateLabel: "Friday, May 29" },
-    { friday: "2026-06-05", page: "pink", name: "Pink", tagline: "On Fridays, we wear pink.", dateLabel: "Friday, June 5" },
+    { friday: "2026-05-15", page: "florals", name: "Florals",          tagline: "Flowers, prints, petals.",                                    dateLabel: "Friday, May 15" },
+    { friday: "2026-05-22", page: "hat",     name: "Hat Day",           tagline: "All hats welcome.",                                           dateLabel: "Friday, May 22" },
+    { friday: "2026-05-29", page: "cartoon", name: "Fave Animated Character", tagline: "'Anime was a mistake.' -Haiyao Miyazaki",              dateLabel: "Friday, May 29" },
+    { friday: "2026-06-05", page: "pink",    name: "Pink",              tagline: "On Fridays, we wear pink.",                                   dateLabel: "Friday, June 5" },
   ];
 
   const blobColors = {
     hat:     ['#fde68a', '#fbbf24', '#fef3c7', '#f59e0b'],
     florals: ['#bbf7d0', '#86efac', '#d1fae5', '#4ade80'],
     cartoon: ['#7DD3FC', '#3B82F6', '#BAE6FD', '#1D4ED8'],
-    pink: ['#FF9EBB', '#FF4D8F', '#FFB3CE', '#FF85AF'],
+    pink:    ['#FF9EBB', '#FF4D8F', '#FFB3CE', '#FF85AF'],
   };
 
   // ── date helpers ───────────────────────────────────
@@ -650,7 +658,6 @@
     const now = new Date(); now.setHours(0,0,0,0);
     const list = document.getElementById('cal-list');
 
-    // show 6 upcoming Fridays from today
     const weeks = [];
     const start = getMondayOf(now);
     for (let i = 0; i < 6; i++) {
@@ -665,7 +672,6 @@
       const isCurrent = friday >= getMondayOf(now) && friday >= now &&
                         friday <= getFridayOf(getMondayOf(now));
 
-      // find matching theme
       const match = themes.find(t => parseFriday(t.friday).getTime() === friday.getTime());
 
       const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -675,12 +681,10 @@
       const row = document.createElement('div');
       row.className = 'cal-row' + (isCurrent ? ' is-current' : '') + (isPast ? ' is-past' : '');
 
-      // date col
       const dateCol = document.createElement('div');
       dateCol.className = 'cal-date-col';
       dateCol.innerHTML = `<div class="cal-month">${month}</div><div class="cal-day">${day}</div>`;
 
-      // theme col
       const themeCol = document.createElement('div');
       themeCol.className = 'cal-theme-col';
       if (match) {
@@ -691,7 +695,6 @@
         themeCol.innerHTML = `<div class="cal-tbd">TBD — check back soon</div>`;
       }
 
-      // image col
       const imgCol = document.createElement('div');
       imgCol.className = 'cal-image-col';
       if (match) {
@@ -713,10 +716,10 @@
   // ── init ───────────────────────────────────────────
   const currentTheme = findThisWeeksTheme();
   if (currentTheme) {
-    if (currentTheme.page === 'hat') document.getElementById('hat-date').textContent = currentTheme.dateLabel;
-    if (currentTheme.page === 'florals') document.getElementById('floral-date').textContent = currentTheme.dateLabel;
-    if (currentTheme.page === 'cartoon') document.getElementById('cartoon-date').textContent = currentTheme.dateLabel;
-    if (currentTheme.page === 'pink') document.getElementById('pink-date').textContent = currentTheme.dateLabel;
+    if (currentTheme.page === 'hat')     document.getElementById('hat-date').textContent     = currentTheme.dateLabel;
+    if (currentTheme.page === 'florals') document.getElementById('floral-date').textContent   = currentTheme.dateLabel;
+    if (currentTheme.page === 'cartoon') document.getElementById('cartoon-date').textContent  = currentTheme.dateLabel;
+    if (currentTheme.page === 'pink')    document.getElementById('pink-date').textContent     = currentTheme.dateLabel;
     showPage(currentTheme.page, false);
   } else {
     showPage('default', true);

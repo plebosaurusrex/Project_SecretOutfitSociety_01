@@ -339,6 +339,7 @@
   #page-florals{ --accent: #3A7D44; --text: #1A2E1C; --muted: #3A5C3F; --pill-bg: #1A2E1C; --pill-text: #F0F7F0; }
   #page-default{ --accent: #e879f9; --text: #fdf4ff; --muted: #d8b4fe; --pill-bg: #e879f9; --pill-text: #1a0a2e; }
   #page-cartoon { --accent: #1D4ED8; --text: #0A1A2E; --muted: #1E3A5F; --pill-bg: #0A1A2E; --pill-text: #D6EEFF; }
+  #page-pink { --accent: #9D0040; --text: #5A0028; --muted: #7A1040; --pill-bg: #5A0028; --pill-text: #FFD6E7; }
 
   /* ── fade in ── */
   @keyframes fadeUp {
@@ -459,6 +460,29 @@
    </div>
  </div>
  
+  <!-- PINK -->
+ <div class="page" id="page-pink">
+  <div class="pink-left">
+    <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="pinkgrad" cx="35%" cy="32%" r="65%">
+          <stop offset="0%" stop-color="#FF85AF"/>
+          <stop offset="100%" stop-color="#C2185B"/>
+        </radialGradient>
+      </defs>
+      <circle cx="110" cy="110" r="90" fill="url(#pinkgrad)"/>
+      <ellipse cx="85" cy="78" rx="28" ry="18" fill="white" opacity="0.12"/>
+    </svg>
+  </div>
+  <div class="text-side">
+    <div class="eyebrow">This Friday's theme</div>
+    <div class="theme-name">Pink</div>
+    <div class="theme-sub">"On Fridays, we wear pink." You know the rules.</div>
+    <a class="date-pill" id="pink-date" href="#calendar"></a>
+  </div>
+</div>
+
+ 
   <!-- DEFAULT -->
   <div class="page" id="page-default">
     <div class="default-left">
@@ -536,7 +560,19 @@
    <circle cx="110" cy="148" r="80" fill="#0A1A2E"/>
    <ellipse cx="92" cy="128" rx="18" ry="22" fill="#1A2A3A" opacity="0.5"/>
  </svg>
+ <svg id="svg-pink" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="pinkgrad-sm" cx="35%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#FF85AF"/>
+      <stop offset="100%" stop-color="#C2185B"/>
+    </radialGradient>
+  </defs>
+  <circle cx="110" cy="110" r="90" fill="url(#pinkgrad-sm)"/>
+  <ellipse cx="85" cy="78" rx="28" ry="18" fill="white" opacity="0.12"/>
+</svg>
 </div>
+
+ 
 
 <script>
   // ══════════════════════════════════════════════════════
@@ -547,12 +583,14 @@
     { friday: "2026-05-22", page: "hat",     name: "Hat Day",  tagline: "All hats welcome.",               dateLabel: "Friday, May 22" },
     { friday: "2026-05-15", page: "florals", name: "Florals",  tagline: "Bloom where you're planted.",     dateLabel: "Friday, May 15" },
     { friday: "2026-05-29", page: "cartoon", name: "Fave Animated Character", tagline: "'Anime was a mistake.' -Haiyao Miyazaki", dateLabel: "Friday, May 29" },
+    { friday: "2026-05-05", page: "pink", name: "Pink", tagline: "On Fridays, we wear pink.", dateLabel: "Friday, May 5" },
   ];
 
   const blobColors = {
     hat:     ['#fde68a', '#fbbf24', '#fef3c7', '#f59e0b'],
     florals: ['#bbf7d0', '#86efac', '#d1fae5', '#4ade80'],
     cartoon: ['#7DD3FC', '#3B82F6', '#BAE6FD', '#1D4ED8'],
+    pink: ['#FF9EBB', '#FF4D8F', '#FFB3CE', '#FF85AF'],
   };
 
   // ── date helpers ───────────────────────────────────
@@ -678,6 +716,7 @@
     if (currentTheme.page === 'hat') document.getElementById('hat-date').textContent = currentTheme.dateLabel;
     if (currentTheme.page === 'florals') document.getElementById('floral-date').textContent = currentTheme.dateLabel;
     if (currentTheme.page === 'cartoon') document.getElementById('cartoon-date').textContent = currentTheme.dateLabel;
+    if (currentTheme.page === 'pink') document.getElementById('pink-date').textContent = currentTheme.dateLabel;
     showPage(currentTheme.page, false);
   } else {
     showPage('default', true);

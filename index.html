@@ -27,9 +27,9 @@
     transition: color 0.6s ease;
   }
 
-  /* ââââââââââââââââââââââââââââââ
+  /* ══════════════════════════════
      BACKGROUND LAYERS (fixed)
-  ââââââââââââââââââââââââââââââ */
+  ══════════════════════════════ */
   body::before {
     content: '';
     position: fixed;
@@ -100,9 +100,9 @@
   body.is-themed .blob   { opacity: 1; }
   body.is-themed::before { opacity: 1; }
 
-  /* ââââââââââââââââââââââââââââââ
-     HERO SECTION â full viewport
-  ââââââââââââââââââââââââââââââ */
+  /* ══════════════════════════════
+     HERO SECTION — full viewport
+  ══════════════════════════════ */
   #hero {
     min-height: 100vh;
     display: flex;
@@ -144,7 +144,7 @@
     margin: 0 0 32px;
   }
 
-  /* date pill â now a scroll link */
+  /* date pill — now a scroll link */
   .date-pill {
     display: inline-block;
     background: var(--pill-bg);
@@ -187,9 +187,9 @@
     50%       { transform: translateX(-50%) translateY(6px); }
   }
 
-  /* ââââââââââââââââââââââââââââââ
+  /* ══════════════════════════════
      CALENDAR SECTION
-  ââââââââââââââââââââââââââââââ */
+  ══════════════════════════════ */
   #calendar {
     min-height: 100vh;
     padding: 80px 2rem 80px;
@@ -346,15 +346,14 @@
     top: -2px;
   }
 
-  /* ââ page CSS vars ââ */
+  /* ── page CSS vars ── */
   #page-hat    { --accent: #C8860A; --text: #1A1208; --muted: #5A4A1A; --pill-bg: #1A1208; --pill-text: #FFF8E7; }
   #page-florals{ --accent: #3A7D44; --text: #1A2E1C; --muted: #3A5C3F; --pill-bg: #1A2E1C; --pill-text: #F0F7F0; }
   #page-default{ --accent: #e879f9; --text: #fdf4ff; --muted: #d8b4fe; --pill-bg: #e879f9; --pill-text: #1a0a2e; }
-  #page-trolley { --accent: #004c9e; --text: #080a1b; --muted: #080a1b99; --pill-bg: #080a1b; --pill-text: #245254248; }
   #page-cartoon { --accent: #1D4ED8; --text: #0A1A2E; --muted: #1E3A5F; --pill-bg: #0A1A2E; --pill-text: #D6EEFF; }
   #page-pink { --accent: #9D0040; --text: #5A0028; --muted: #7A1040; --pill-bg: #5A0028; --pill-text: #FFD6E7; }
 
-  /* ââ fade in ââ */
+  /* ── fade in ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -375,9 +374,9 @@
 <div class="blob blob-3"></div>
 <div class="blob blob-4"></div>
 
-<!-- ââââââââââââââââââââââââââââââ
+<!-- ══════════════════════════════
      HERO
-ââââââââââââââââââââââââââââââ -->
+══════════════════════════════ -->
 <section id="hero">
 
   <!-- HAT DAY -->
@@ -401,7 +400,7 @@
     <div class="text-side">
       <div class="eyebrow">This Friday's theme</div>
       <div class="theme-name">Hat<br>Day</div>
-      <div class="theme-sub">Break out your best lids. Silly, fancy, tiny, enormous â all hats welcome.</div>
+      <div class="theme-sub">Break out your best lids. Silly, fancy, tiny, enormous — all hats welcome.</div>
       <a class="date-pill" id="hat-date" href="#calendar"></a>
     </div>
   </div>
@@ -449,7 +448,7 @@
     <div class="text-side">
       <div class="eyebrow">This Friday's theme</div>
       <div class="theme-name">Florals</div>
-      <div class="theme-sub">Bloom where you're planted. Flowers, prints, petals â the more the merrier.</div>
+      <div class="theme-sub">Bloom where you're planted. Flowers, prints, petals — the more the merrier.</div>
       <a class="date-pill" id="floral-date" href="#calendar"></a>
     </div>
   </div>
@@ -495,22 +494,6 @@
     </div>
   </div>
 
-  <!-- TROLLEY PROBLEM -->
-  <div class="page" id="page-trolley">
-    <div class="trolley-left">
-      <?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M685.1 21L513 319.1 340.9 21z" fill="#ACD8CB" /><path d="M513 328.1c-3.2 0-6.2-1.7-7.8-4.5L333.1 25.5c-1.6-2.8-1.6-6.2 0-9s4.6-4.5 7.8-4.5h344.2c3.2 0 6.2 1.7 7.8 4.5 1.6 2.8 1.6 6.2 0 9L520.8 323.6c-1.6 2.7-4.6 4.5-7.8 4.5zM356.5 30L513 301.1 669.5 30h-313zM263.1 1020.8c-1 0-2-0.2-3-0.5-4.7-1.7-7.1-6.8-5.5-11.5L371.9 679c1.7-4.7 6.8-7.1 11.5-5.5 4.7 1.7 7.1 6.8 5.5 11.5l-117.3 329.8c-1.3 3.7-4.8 6-8.5 6zM762.9 1020.8c-3.7 0-7.2-2.3-8.5-6L637.1 685c-1.7-4.7 0.8-9.8 5.5-11.5 4.7-1.7 9.8 0.8 11.5 5.5l117.3 329.8c1.7 4.7-0.8 9.8-5.5 11.5-1 0.3-2 0.5-3 0.5z" fill="#3E4152" /><path d="M741 959.4H285c-5 0-9-4-9-9s4-9 9-9h456c5 0 9 4 9 9s-4 9-9 9z" fill="#3E4152" /><path d="M747 846.2H279c-31.6 0-57.2-25.6-57.2-57.2V166.7c0-31.6 25.6-57.2 57.2-57.2h468c31.6 0 57.2 25.6 57.2 57.2V789c0 31.6-25.6 57.2-57.2 57.2z" fill="#C1E7D8" /><path d="M747 855.2H279c-36.5 0-66.2-29.7-66.2-66.2V166.7c0-36.5 29.7-66.2 66.2-66.2h468c36.5 0 66.2 29.7 66.2 66.2V789c0 36.5-29.7 66.2-66.2 66.2zM279 118.5c-26.6 0-48.2 21.6-48.2 48.2V789c0 26.6 21.6 48.2 48.2 48.2h468c26.6 0 48.2-21.6 48.2-48.2V166.7c0-26.6-21.6-48.2-48.2-48.2H279z" fill="#3E4152" /><path d="M221.8 221.9h582.5v18H221.8zM221.8 599.6h582.5v18H221.8z" fill="#3E4152" /><path d="M754.8 846.2H271.2c-27.3 0-49.5-22.2-49.5-49.5v-191h582.5v190.9c0 27.4-22.1 49.6-49.4 49.6z" fill="#9B5C77" /><path d="M754.8 855.2H271.2c-32.2 0-58.5-26.2-58.5-58.5V605.8c0-5 4-9 9-9h582.5c5 0 9 4 9 9v190.9c0 32.2-26.2 58.5-58.4 58.5z m-524-240.4v181.9c0 22.3 18.2 40.5 40.5 40.5h483.5c22.3 0 40.5-18.2 40.5-40.5V614.8H230.8z" fill="#3E4152" /><path d="M392.8 702.9H289c-5 0-9-4-9-9s4-9 9-9h103.8c5 0 9 4 9 9s-4 9-9 9zM737 702.9H633.2c-5 0-9-4-9-9s4-9 9-9H737c5 0 9 4 9 9s-4 9-9 9zM143.8 428.8c-5 0-9-4-9-9v-72.2l81.2-68.7c3.8-3.2 9.5-2.7 12.7 1.1 3.2 3.8 2.7 9.5-1.1 12.7L152.8 356v63.9c0 4.8-4.1 8.9-9 8.9zM882.2 428.8c-5 0-9-4-9-9v-63.9l-74.8-63.3c-3.8-3.2-4.3-8.9-1.1-12.7 3.2-3.8 8.9-4.3 12.7-1.1l81.2 68.7v72.2c0 5-4 9.1-9 9.1z" fill="#3E4152" /><path d="M804.2 230.9H221.8v-72c0-27.3 22.2-49.5 49.5-49.5h483.5c27.3 0 49.5 22.2 49.5 49.5v72z" fill="#8599A4" /><path d="M813.2 239.9H212.8v-81c0-32.2 26.2-58.5 58.5-58.5h483.5c32.2 0 58.5 26.2 58.5 58.5v81z m-582.4-18h564.5v-63c0-22.3-18.2-40.5-40.5-40.5H271.2c-22.3 0-40.5 18.2-40.5 40.5v63z" fill="#3E4152" /></svg>
-    </div>
-    <div class="text-side">
-      <div class="eyebrow">This Friday's theme</div>
-      <div class="theme-name">Trolley Problem</div>
-      <div class="theme-sub">Will you pull the lever? Choo choo mfkr.</div>
-      <a class="date-pill" id="trolley-date" href="#calendar"></a>
-    </div>
-  </div>
-
-
   <!-- DEFAULT -->
   <div class="page" id="page-default">
     <div class="default-left">
@@ -528,7 +511,7 @@
       <div class="eyebrow">This Friday's theme</div>
       <div class="theme-name" style="font-size:56px;">No theme<br>yet...</div>
       <div class="theme-sub">Nothing scheduled for this week. Check back once the group decides!</div>
-      <a class="date-pill" href="#calendar">See upcoming â</a>
+      <a class="date-pill" href="#calendar">See upcoming →</a>
     </div>
   </div>
 
@@ -539,9 +522,9 @@
   </a>
 </section>
 
-<!-- ââââââââââââââââââââââââââââââ
+<!-- ══════════════════════════════
      CALENDAR
-ââââââââââââââââââââââââââââââ -->
+══════════════════════════════ -->
 <section id="calendar">
   <div class="cal-header">
     <div class="cal-eyebrow">Schedule</div>
@@ -598,23 +581,17 @@
     <circle cx="110" cy="110" r="90" fill="url(#pinkgrad-sm)"/>
     <ellipse cx="85" cy="78" rx="28" ry="18" fill="white" opacity="0.12"/>
   </svg>
-  <svg id="svg-trolley" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-    <?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<path d="M685.1 21L513 319.1 340.9 21z" fill="#ACD8CB" /><path d="M513 328.1c-3.2 0-6.2-1.7-7.8-4.5L333.1 25.5c-1.6-2.8-1.6-6.2 0-9s4.6-4.5 7.8-4.5h344.2c3.2 0 6.2 1.7 7.8 4.5 1.6 2.8 1.6 6.2 0 9L520.8 323.6c-1.6 2.7-4.6 4.5-7.8 4.5zM356.5 30L513 301.1 669.5 30h-313zM263.1 1020.8c-1 0-2-0.2-3-0.5-4.7-1.7-7.1-6.8-5.5-11.5L371.9 679c1.7-4.7 6.8-7.1 11.5-5.5 4.7 1.7 7.1 6.8 5.5 11.5l-117.3 329.8c-1.3 3.7-4.8 6-8.5 6zM762.9 1020.8c-3.7 0-7.2-2.3-8.5-6L637.1 685c-1.7-4.7 0.8-9.8 5.5-11.5 4.7-1.7 9.8 0.8 11.5 5.5l117.3 329.8c1.7 4.7-0.8 9.8-5.5 11.5-1 0.3-2 0.5-3 0.5z" fill="#3E4152" /><path d="M741 959.4H285c-5 0-9-4-9-9s4-9 9-9h456c5 0 9 4 9 9s-4 9-9 9z" fill="#3E4152" /><path d="M747 846.2H279c-31.6 0-57.2-25.6-57.2-57.2V166.7c0-31.6 25.6-57.2 57.2-57.2h468c31.6 0 57.2 25.6 57.2 57.2V789c0 31.6-25.6 57.2-57.2 57.2z" fill="#C1E7D8" /><path d="M747 855.2H279c-36.5 0-66.2-29.7-66.2-66.2V166.7c0-36.5 29.7-66.2 66.2-66.2h468c36.5 0 66.2 29.7 66.2 66.2V789c0 36.5-29.7 66.2-66.2 66.2zM279 118.5c-26.6 0-48.2 21.6-48.2 48.2V789c0 26.6 21.6 48.2 48.2 48.2h468c26.6 0 48.2-21.6 48.2-48.2V166.7c0-26.6-21.6-48.2-48.2-48.2H279z" fill="#3E4152" /><path d="M221.8 221.9h582.5v18H221.8zM221.8 599.6h582.5v18H221.8z" fill="#3E4152" /><path d="M754.8 846.2H271.2c-27.3 0-49.5-22.2-49.5-49.5v-191h582.5v190.9c0 27.4-22.1 49.6-49.4 49.6z" fill="#9B5C77" /><path d="M754.8 855.2H271.2c-32.2 0-58.5-26.2-58.5-58.5V605.8c0-5 4-9 9-9h582.5c5 0 9 4 9 9v190.9c0 32.2-26.2 58.5-58.4 58.5z m-524-240.4v181.9c0 22.3 18.2 40.5 40.5 40.5h483.5c22.3 0 40.5-18.2 40.5-40.5V614.8H230.8z" fill="#3E4152" /><path d="M392.8 702.9H289c-5 0-9-4-9-9s4-9 9-9h103.8c5 0 9 4 9 9s-4 9-9 9zM737 702.9H633.2c-5 0-9-4-9-9s4-9 9-9H737c5 0 9 4 9 9s-4 9-9 9zM143.8 428.8c-5 0-9-4-9-9v-72.2l81.2-68.7c3.8-3.2 9.5-2.7 12.7 1.1 3.2 3.8 2.7 9.5-1.1 12.7L152.8 356v63.9c0 4.8-4.1 8.9-9 8.9zM882.2 428.8c-5 0-9-4-9-9v-63.9l-74.8-63.3c-3.8-3.2-4.3-8.9-1.1-12.7 3.2-3.8 8.9-4.3 12.7-1.1l81.2 68.7v72.2c0 5-4 9.1-9 9.1z" fill="#3E4152" /><path d="M804.2 230.9H221.8v-72c0-27.3 22.2-49.5 49.5-49.5h483.5c27.3 0 49.5 22.2 49.5 49.5v72z" fill="#8599A4" /><path d="M813.2 239.9H212.8v-81c0-32.2 26.2-58.5 58.5-58.5h483.5c32.2 0 58.5 26.2 58.5 58.5v81z m-582.4-18h564.5v-63c0-22.3-18.2-40.5-40.5-40.5H271.2c-22.3 0-40.5 18.2-40.5 40.5v63z" fill="#3E4152" />
-  </svg>
 </div>
 
 <script>
-  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  // ══════════════════════════════════════════════════════
   // THEME SCHEDULE
-  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  // ══════════════════════════════════════════════════════
   const themes = [
     { friday: "2026-05-15", page: "florals", name: "Florals",          tagline: "Flowers, prints, petals.",                                    dateLabel: "Friday, May 15" },
     { friday: "2026-05-22", page: "hat",     name: "Hat Day",           tagline: "All hats welcome.",                                           dateLabel: "Friday, May 22" },
     { friday: "2026-05-29", page: "cartoon", name: "Fave Animated Character", tagline: "'Anime was a mistake.' -Haiyao Miyazaki",              dateLabel: "Friday, May 29" },
     { friday: "2026-06-05", page: "pink",    name: "Pink",              tagline: "On Fridays, we wear pink.",                                   dateLabel: "Friday, June 5" },
-    { friday: "2026-05-15", page: "trolley", name: "Trolley Problem", tagline: "Will you pull the lever? Choo choo mfkr.", dateLabel: "Friday, May 15" },
   ];
 
   const blobColors = {
@@ -622,10 +599,9 @@
     florals: ['#bbf7d0', '#86efac', '#d1fae5', '#4ade80'],
     cartoon: ['#7DD3FC', '#3B82F6', '#BAE6FD', '#1D4ED8'],
     pink:    ['#FF9EBB', '#FF4D8F', '#FFB3CE', '#FF85AF'],
-    trolley: ['#bbf7d0', '#4ade80', '#dcfce7', '#16a34a'],
   };
 
-  // ââ date helpers âââââââââââââââââââââââââââââââââââ
+  // ── date helpers ───────────────────────────────────
   function getMondayOf(date) {
     const d = new Date(date);
     const day = d.getDay();
@@ -657,7 +633,7 @@
     return null;
   }
 
-  // ââ render hero ââââââââââââââââââââââââââââââââââââ
+  // ── render hero ────────────────────────────────────
   function showPage(id, isDefault) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const el = document.getElementById('page-' + id);
@@ -677,7 +653,7 @@
     }
   }
 
-  // ââ build calendar âââââââââââââââââââââââââââââââââ
+  // ── build calendar ─────────────────────────────────
   function buildCalendar() {
     const now = new Date(); now.setHours(0,0,0,0);
     const list = document.getElementById('cal-list');
@@ -716,7 +692,7 @@
           <div class="cal-theme-name">${match.name}${isCurrent ? '<span class="current-badge">This week</span>' : ''}</div>
           <div class="cal-theme-sub">${match.tagline}</div>`;
       } else {
-        themeCol.innerHTML = `<div class="cal-tbd">TBD â check back soon</div>`;
+        themeCol.innerHTML = `<div class="cal-tbd">TBD — check back soon</div>`;
       }
 
       const imgCol = document.createElement('div');
@@ -737,14 +713,13 @@
     });
   }
 
-  // ââ init âââââââââââââââââââââââââââââââââââââââââââ
+  // ── init ───────────────────────────────────────────
   const currentTheme = findThisWeeksTheme();
   if (currentTheme) {
     if (currentTheme.page === 'hat')     document.getElementById('hat-date').textContent     = currentTheme.dateLabel;
     if (currentTheme.page === 'florals') document.getElementById('floral-date').textContent   = currentTheme.dateLabel;
     if (currentTheme.page === 'cartoon') document.getElementById('cartoon-date').textContent  = currentTheme.dateLabel;
     if (currentTheme.page === 'pink')    document.getElementById('pink-date').textContent     = currentTheme.dateLabel;
-        if (currentTheme.page === 'trolley') document.getElementById('trolley-date').textContent = currentTheme.dateLabel;
     showPage(currentTheme.page, false);
   } else {
     showPage('default', true);

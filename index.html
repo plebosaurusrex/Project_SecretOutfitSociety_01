@@ -344,6 +344,7 @@
   #page-hat     { --accent: #C8860A; --text: #1A1208; --muted: #5A4A1A;  --pill-bg: #1A1208; --pill-text: #FFF8E7; }
   #page-florals { --accent: #3A7D44; --text: #1A2E1C; --muted: #3A5C3F;  --pill-bg: #1A2E1C; --pill-text: #F0F7F0; }
   #page-default { --accent: #e879f9; --text: #fdf4ff; --muted: #d8b4fe;  --pill-bg: #e879f9; --pill-text: #1a0a2e; }
+    #page-big { --accent: #ff4d00; --text: #ff6600; --muted: #ff660099; --pill-bg: #ff6600; --pill-text: #255249242; }
   #page-cartoon { --accent: #1D4ED8; --text: #0A1A2E; --muted: #1E3A5F;  --pill-bg: #0A1A2E; --pill-text: #D6EEFF; }
   #page-pink    { --accent: #9D0040; --text: #5A0028; --muted: #7A1040;  --pill-bg: #5A0028; --pill-text: #FFD6E7; }
   #page-countries { --accent: #000b9e; --text: #080a1b; --muted: #2a2a5a; --pill-bg: #080a1b; --pill-text: #e0f2fe; }
@@ -500,6 +501,45 @@
     </div>
   </div>
 
+  <!-- BIG -->
+  <div class="page" id="page-big">
+    <div class="big-left">
+      <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
+
+<g fill="#ff5a79">
+
+<path d="M23 42.4H13L9 2h18z">
+
+</path>
+
+<ellipse cx="18" cy="54.4" rx="7.7" ry="7.6">
+
+</ellipse>
+
+<path d="M51 42.4H41L37 2h18z">
+
+</path>
+
+<ellipse cx="46" cy="54.4" rx="7.7" ry="7.6">
+
+</ellipse>
+
+</g>
+
+</svg>
+    </div>
+    <div class="text-side">
+      <div class="eyebrow">This Friday's theme</div>
+      <div class="theme-name">BIG</div>
+      <div class="theme-sub">BIG ANYTHING! BIG PANTS, BIG HAT, BIG EARS, GO WILD!</div>
+      <a class="date-pill" id="big-date" href="#calendar"></a>
+    </div>
+  </div>
+
+
   <!-- DEFAULT -->
   <div class="page" id="page-default">
     <div class="default-left">
@@ -590,6 +630,32 @@
     <path fill="#394240" d="M32,0C14.327,0,0,14.327,0,32s14.327,32,32,32s32-14.327,32-32S49.673,0,32,0z"/>
     <path fill="#F9EBB2" d="M32.363,55.087c-0.029,0.16-0.014,0.498-0.003,0.731c0.016,0.341,0.034,0.727-0.012,1.117c-0.036,0.335-0.118,0.643-0.189,0.914c-0.054,0.203-0.136,0.511-0.115,0.603c0.048,0.041,0.078,0.053,0.138,0.053c0.244,0,0.704-0.232,1.11-0.678c0.514-0.571,0.5-1.376-0.039-2.043C32.729,55.116,32.531,55.057,32.363,55.087z"/>
   </svg>
+  <svg id="svg-big" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+
+<g fill="#ff5a79">
+
+<path d="M23 42.4H13L9 2h18z">
+
+</path>
+
+<ellipse cx="18" cy="54.4" rx="7.7" ry="7.6">
+
+</ellipse>
+
+<path d="M51 42.4H41L37 2h18z">
+
+</path>
+
+<ellipse cx="46" cy="54.4" rx="7.7" ry="7.6">
+
+</ellipse>
+
+</g>
+  </svg>
 </div>
 
 <script>
@@ -602,6 +668,7 @@
     { friday: "2026-05-29", page: "cartoon",    name: "Fave Animated Character",  tagline: "'Anime was a mistake.' -Haiyao Miyazaki",           dateLabel: "Friday, May 29" },
     { friday: "2026-06-05", page: "pink",       name: "Pink",                     tagline: "On Fridays, we wear pink.",                         dateLabel: "Friday, June 5" },
     { friday: "2026-06-26", page: "countries",  name: "Countries",                tagline: "Rep a country, any country!",                       dateLabel: "Friday, June 26" },
+        { friday: "2026-07-10", page: "big", name: "BIG", tagline: "BIG ANYTHING! BIG PANTS, BIG HAT, BIG EARS, GO WILD!", dateLabel: "Friday, July 10" },
   ];
 
   const blobColors = {
@@ -610,6 +677,7 @@
     cartoon:   ['#7DD3FC', '#3B82F6', '#BAE6FD', '#1D4ED8'],
     pink:      ['#FF9EBB', '#FF4D8F', '#FFB3CE', '#FF85AF'],
     countries: ['#99f6e4', '#2dd4bf', '#ccfbf1', '#0d9488'],
+    big: ['#fed7aa', '#fb923c', '#ffedd5', '#ea580c'],
   };
 
   // ── date helpers ──
@@ -732,6 +800,7 @@
     if (currentTheme.page === 'cartoon')   document.getElementById('cartoon-date').textContent    = currentTheme.dateLabel;
     if (currentTheme.page === 'pink')      document.getElementById('pink-date').textContent       = currentTheme.dateLabel;
     if (currentTheme.page === 'countries') document.getElementById('countries-date').textContent  = currentTheme.dateLabel;
+        if (currentTheme.page === 'big') document.getElementById('big-date').textContent = currentTheme.dateLabel;
     showPage(currentTheme.page, false);
   } else {
     showPage('default', true);

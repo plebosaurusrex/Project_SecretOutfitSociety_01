@@ -344,6 +344,7 @@
   #page-hat     { --accent: #C8860A; --text: #1A1208; --muted: #5A4A1A;  --pill-bg: #1A1208; --pill-text: #FFF8E7; }
   #page-florals { --accent: #3A7D44; --text: #1A2E1C; --muted: #3A5C3F;  --pill-bg: #1A2E1C; --pill-text: #F0F7F0; }
   #page-default { --accent: #e879f9; --text: #fdf4ff; --muted: #d8b4fe;  --pill-bg: #e879f9; --pill-text: #1a0a2e; }
+    #page-yellow { --accent: #ffe070; --text: #fff5db; --muted: #fff5db99; --pill-bg: #fff5db; --pill-text: #239235222; }
     #page-big { --accent: #ff4d00; --text: #ff6600; --muted: #ff660099; --pill-bg: #ff6600; --pill-text: #255249242; }
   #page-cartoon { --accent: #1D4ED8; --text: #0A1A2E; --muted: #1E3A5F;  --pill-bg: #0A1A2E; --pill-text: #D6EEFF; }
   #page-pink    { --accent: #9D0040; --text: #5A0028; --muted: #7A1040;  --pill-bg: #5A0028; --pill-text: #FFD6E7; }
@@ -539,6 +540,20 @@
     </div>
   </div>
 
+  <!-- AND IT WAS ALL YELLOW -->
+  <div class="page" id="page-yellow">
+    <div class="yellow-left">
+      <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet" fill="#000000"><g id="yellow-SVGRepo_bgCarrier" stroke-width="0"></g><g id="yellow-SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="yellow-SVGRepo_iconCarrier"><circle fill="#FDCB58" cx="18" cy="18" r="18"></circle></g></svg>
+    </div>
+    <div class="text-side">
+      <div class="eyebrow">This Friday's theme</div>
+      <div class="theme-name">And it was all Yellow</div>
+      <div class="theme-sub">Ring ring! Yellow? Who is this? A yellow theme? FINALLY!</div>
+      <a class="date-pill" id="yellow-date" href="#calendar"></a>
+    </div>
+  </div>
+
+
 
   <!-- DEFAULT -->
   <div class="page" id="page-default">
@@ -656,6 +671,9 @@
 
 </g>
   </svg>
+  <svg id="svg-yellow" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+    <g id="yellow-SVGRepo_bgCarrier" stroke-width="0"></g><g id="yellow-SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="yellow-SVGRepo_iconCarrier"><circle fill="#FDCB58" cx="18" cy="18" r="18"></circle></g>
+  </svg>
 </div>
 
 <script>
@@ -669,6 +687,7 @@
     { friday: "2026-06-05", page: "pink",       name: "Pink",                     tagline: "On Fridays, we wear pink.",                         dateLabel: "Friday, June 5" },
     { friday: "2026-06-26", page: "countries",  name: "Countries",                tagline: "Rep a country, any country!",                       dateLabel: "Friday, June 26" },
         { friday: "2026-07-10", page: "big", name: "BIG", tagline: "BIG ANYTHING! BIG PANTS, BIG HAT, BIG EARS, GO WILD!", dateLabel: "Friday, July 10" },
+        { friday: "2026-07-17", page: "yellow", name: "And it was all Yellow", tagline: "Ring ring! Yellow? Who is this? A yellow theme? FINALLY!", dateLabel: "Friday, July 17" },
   ];
 
   const blobColors = {
@@ -678,6 +697,7 @@
     pink:      ['#FF9EBB', '#FF4D8F', '#FFB3CE', '#FF85AF'],
     countries: ['#99f6e4', '#2dd4bf', '#ccfbf1', '#0d9488'],
     big: ['#fed7aa', '#fb923c', '#ffedd5', '#ea580c'],
+    yellow: ['#917a22', '#fbbf24', '#b2982e', '#f59e0b'],
   };
 
   // ── date helpers ──
@@ -801,6 +821,7 @@
     if (currentTheme.page === 'pink')      document.getElementById('pink-date').textContent       = currentTheme.dateLabel;
     if (currentTheme.page === 'countries') document.getElementById('countries-date').textContent  = currentTheme.dateLabel;
         if (currentTheme.page === 'big') document.getElementById('big-date').textContent = currentTheme.dateLabel;
+        if (currentTheme.page === 'yellow') document.getElementById('yellow-date').textContent = currentTheme.dateLabel;
     showPage(currentTheme.page, false);
   } else {
     showPage('default', true);

@@ -648,8 +648,8 @@
       // 5. hidden SVG — before closing </div> before <script
       html = html.replace(/(<div style="display:none">[\s\S]*?)(<\/div>\s*\n\s*<script)/, `$1\n${generatedSnippet.hiddenSvg}\n$2`);
 
-      // 6. Init line — before the showPage call in init
-      html = html.replace(/(window\.scrollTo\(0, 0\);)/, `${generatedSnippet.initLine}\n  $1`);
+      // 6. Init line — inside the if(currentTheme) block, before the generic pill lookup
+      html = html.replace(/(const pillEl = document\.getElementById\(currentTheme\.page \+ '-date'\);)/, `${generatedSnippet.initLine}\n    $1`);
 
       pushBtn.textContent = 'Committing...';
       const putRes = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${file}`, {
